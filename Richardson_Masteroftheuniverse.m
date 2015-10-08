@@ -221,7 +221,7 @@ err=psteps-log_real_lengths;
 SSE=err'*err;
 Rsquared=1-SSE/length(err);
 
-% plotting
+%% plotting
 plot(log_real_stepsize,log_real_lengths,'.');
 hold on;
 set(0,'defaulttextinterpreter','latex');
@@ -229,7 +229,17 @@ plot(log_real_stepsize,psteps,'m','LineWidth',3);
 set(gca,'FontSize',15);
 ylabel('Perimeter: $\log_{10}$(cm)');
 xlabel('Step Size: $\log_{10}$(cm)');
+% legend({'data';sprintf('y=%.3fx+%.3f\n$R^2=$%.3f',...
+%     p(1),p(2),1-SSE/length(err))},'Interpreter','Latex')
 drawnow;
+% pts = load('polypts.dat');
+% figure();
+% plot(B(:,1),B(:,2),'b.-')
+% hold on
+% plot(pts(:,1),pts(:,2),'r.-')
+% axis equal
+
+%% write data
 fh=fopen([pix.textdata{idx},'.txt'],'w');
 fprintf(fh,'1-D=%.15e, log(M)=%.15e\n',p(1),p(2));
 fclose(fh);
@@ -240,14 +250,4 @@ for i=1:length(data(:,1))
 end
 fclose(fh);
 
-
-% legend({'data';sprintf('y=%.3fx+%.3f\n$R^2=$%.3f',...
-%     p(1),p(2),1-SSE/length(err))},'Interpreter','Latex')
-
-% pts = load('polypts.dat');
-% figure();
-% plot(B(:,1),B(:,2),'b.-')
-% hold on
-% plot(pts(:,1),pts(:,2),'r.-')
-% axis equal
 end
